@@ -4,7 +4,13 @@
 TCMALLOC="$(ldconfig -p | grep -Po "libtcmalloc.so.\d" | head -n 1)"
 export LD_PRELOAD="${TCMALLOC}"
 
-ln -s /runpod-volume/custom_nodes /comfyui/custom_nodes
+source_directory="/runpod-volume/custom_nodes"
+destination_directory="/comfyui/custom_nodes"
+
+for dir in "$source_directory"/*/; do
+  dir_name=$(basename "$dir")
+  ln -s "$dir" "$destination_directory/$dir_name"
+done
 
 # Serve the API and don't shutdown the container
 if [ "$SERVE_API_LOCALLY" == "true" ]; then
