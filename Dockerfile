@@ -26,7 +26,8 @@ WORKDIR /comfyui
 
 # Install ComfyUI dependencies
 RUN pip3 install --upgrade --no-cache-dir torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121 \
-    && pip3 install --upgrade -r requirements.txt
+    && pip3 install --upgrade -r requirements.txt \
+    && pip3 install opencv-python
 
 # Install runpod
 RUN pip3 install runpod requests
